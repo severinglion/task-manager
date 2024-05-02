@@ -1,3 +1,6 @@
+import {db, database} from '@/model/DevDatabase';
+import Program from '@/model/Project';
+import {promisify} from 'node:util';
 
 const defaultTasks = [
   {
@@ -19,33 +22,28 @@ const defaultTasks = [
     docRef: 'https://futurefocusca.sharepoint.com/sites/BusinessProcessDev2/SitePages/Training-Document.aspx'
   },
 ];
-const tasks = {
-  items: [...defaultTasks],
-}
 
-tasks.nextId = () => tasks.items.length + 1;
-tasks.get = (id) => tasks.items.find(task => task.id === id);
-tasks.add = (task) => tasks.items.push(task);
-tasks.remove = (id) => tasks.items = tasks.items.filter(task => task.id !== id)
 
-export async function POST() {
-  const task = {
-    id: tasks.nextId(),
-    name: 'New Task',
-    description: 'A new task',
-    completed: false,
-    dueDate: '',
-    assignee: null,
-    docRef: ''
-  }
-  tasks.add(task);
+const defaultProgram = new Program()
+defaultProgram.addTask(defaultTasks[0]);
+defaultProgram.addTask(defaultTasks[1]);
+defaultProgram.setName('My Program');
+
+database.addProject(defaultProgram);
+
+export async function POST(request, {params}) {
+  const id = params.id;
+  console.log('add request', request.body);
+  const program = database.getProject(id);
+  program.addTask(request.body);
+  console.log('after adding task', database);
   return new Response(200);
 }
 
-export async function GET() {
+export async function GET(request, {params}) {
   try {
-    const body = JSON.stringify(tasks.items);
-    return new Response(body, {
+    const 
+    return new Response(JSON.stringify(program), {
       headers: {
         'content-type': 'application/json'
       }

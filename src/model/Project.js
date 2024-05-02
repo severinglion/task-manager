@@ -1,9 +1,21 @@
 import TaskList from "./TaskList";
 
 export class Project {
-  constructor(formData) {
-    tasks = new TaskList();
-    this.name = formData.get('name');
+  constructor() {
+    this.tasks = new TaskList();
+  }
+
+  nextId() {
+    const max = this.tasks.reduce((max, task) => Math.max(max, task.id), 0);
+    return max + 1;
+  }
+
+  loadForm(formData) {
+
+  }
+
+  getTasks() {
+    return [...this.tasks]
   }
 
   setName(name) {
@@ -11,15 +23,15 @@ export class Project {
   }
 
   addTask(task) {
-    tasks.add(task);
+    this.tasks.add(task);
   }
 
   removeTask(task) {
-    tasks.remove(task);
+    this.tasks.remove(task);
   }
 
   updateTask(task) {
-    tasks.update(task);
+    this.tasks.update(task);
   }
 }
 

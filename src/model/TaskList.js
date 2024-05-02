@@ -12,7 +12,11 @@ export default class TaskList {
   }
 
   add(task) {
-    task.id = this._nextId();
+    if(this.tasks.length === 0) {
+      task.id = 0;
+    } else {
+      task.id = this._nextId();
+    }
     this.tasks.push(task);
   }
 

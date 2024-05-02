@@ -1,23 +1,32 @@
 import ActionButton from '@/components/ActionButton';
 import Task from '@/components/Task';
 import TaskHeader from '@/components/TaskHeader';
-import {Stack, Container, Button} from '@mui/material';
-import {getProject, getUsers, addTask} from '@/serverActions/projectActions'
+import {
+  Stack,
+  Container,
+  Button,
+  TextField,
+  
+} from '@mui/material';
+import {getProject, getUsers} from '@/serverActions/projectActions'
+import { TaskForm } from '@/components/TaskForm';
 
 export const metadata = {
   title: "New Project",
   description: "Create and configure your project here",
 };
 
+
+
 export default async function ProjectDasboard({params}) {
   const id = params.id;
-  const tasks = await getProject(id);
+  const program = await getProject(id);
+  const tasks = program.tasks.tasks;
   const users = await getUsers();
-
   return (
     <main>
       <Container>
-        <h1>Project {id}</h1>
+        <h1>{program.name}</h1>
         <Stack overflow='auto'>
           <TaskHeader />
           {
@@ -34,7 +43,10 @@ export default async function ProjectDasboard({params}) {
             ))
           }
         </Stack>
-        <ActionButton action={addTask} title='Add Task' />
+        <TaskForm 
+          id={id}
+          type='project'
+        />
       </Container>
     </main>
   )

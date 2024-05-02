@@ -15,9 +15,12 @@
     "@fontsource/roboto": "^5.0.13",
     "@mui/icons-material": "^5.15.15",
     "@mui/material-nextjs": "^5.15.11",
+    "@mui/x-date-pickers": "^7.3.2",
+    "dayjs": "^1.11.11",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "eslint": "^8",

@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            {children}
+              {children}
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

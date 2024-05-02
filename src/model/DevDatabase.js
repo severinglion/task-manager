@@ -1,3 +1,18 @@
+import sqlite3 from 'sqlite3';
+import {migration, getAddProjectQuery, getAddProjectTaskQuery} from './dbConfigQueries';
+
+export const db = new sqlite3.Database(':memory:')
+
+db.serialize(() => {
+  db.run(migration);
+  // seed data
+  db.run(getAddProjectQuery('My Project'));
+  db.run(getAddProjectTaskQuery(1, 'Learn React', 'Learn react from documentation', 1, 'https://futurefocusca.sharepoint.com/sites/BusinessProcessDev2/SitePages/Training-Document.aspx', '01/02/03'));
+  db.run(getAddProjectTaskQuery(1, 'Learn SQL', 'Learn SQL from documentation', 2, 'https://futurefocusca.sharepoint.com/sites/BusinessProcessDev2/SitePages/Training-Document.aspx', '01/02/03'));
+})
+
+db.close();
+
 export const database = {
   projects: [],
   templates: [],
@@ -59,5 +74,4 @@ database.removeTemplate = (id) => {
 database.getUsers = () => {
   return database.users;
 }
-
 export default database;

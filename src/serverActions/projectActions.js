@@ -1,5 +1,5 @@
 'use server'
-
+import { revalidatePath } from "next/cache"
 export async function getProject(id) {
   const res = await fetch(`http://localhost:3000/api/project/${id}`)
 
@@ -21,13 +21,30 @@ export async function getUsers() {
   return res.json();
 }
 
-export async function addTask(id) {
-  const res = await fetch(
-    `http://localhost:3000/api/project/${id}`,
-    {method: 'POST'}
-  );
-  if(!res.ok) {
-    throw new Error('Failed to post data')
+export async function addProjectTask(formData) {
+  const type = formData.get('type');
+  const id = formData.get('id');
+  const url = `http://localhost:3000/${type}/${id}`
+  const task = {
+    id: id,
+    type: type,
+    name: formData.get('name'),
+    description: formData.get('description'),
+    assignee: formData.get('assignee'),
+    docRef: formData.get('docRef'),
+    dueDate: formData.get('dueDate')
   }
-  return await getProject(id);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(task),
+  });
+
+  if(!response.ok) {
+    throw new Error('Failed to add task');
+  }
+
+  revalidatePath(url);
+
+  return 'OK';
 }
