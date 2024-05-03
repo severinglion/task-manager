@@ -11,7 +11,7 @@ export function Task ({
   assignee,
   docRef
 }) {
-  const mailToLink = `mailto:${assignee.email}`;
+  const mailToLink = assignee ? `mailto:${assignee.email}` : '';
   return (
     <Box  width='1000px'>
       <Stack direction='row' spacing={0} alignItems='center'>
@@ -20,7 +20,7 @@ export function Task ({
           </Link>
           <TaskItem type='text' value={description} />
           <Link href={mailToLink}>
-            <TaskItem type='text' value={assignee.name} />
+            <TaskItem type='text' value={assignee?.name || 'Unassigned'} />
           </Link>
           <TaskItem type='text' value={dueDate} />
           <TaskItem type='checkbox'  value={completed} />

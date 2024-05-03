@@ -1,37 +1,51 @@
+import { stringify } from "postcss";
 import TaskList from "./TaskList";
+import { db } from "./db/db";
 
 export class Project {
   constructor() {
-    this.tasks = new TaskList();
+    this.db = db
   }
 
-  nextId() {
-    const max = this.tasks.reduce((max, task) => Math.max(max, task.id), 0);
-    return max + 1;
+  async get(id) {
+    this.id = id;
+    try {
+      const proj = await this.db('projects')
+      .where('id', id)
+      .first();
+    if(!proj) {
+      throw new Error('Project not found');
+    }
+    this.name = proj.name;
+
+    this.tasks = await this.db('projectTasks')
+      .where('projectId', id)
+      .select();
+    } catch (e) {
+      console.error('Database error', e);
+    }
   }
 
-  loadForm(formData) {
+  async create() {
 
-  }
-
-  getTasks() {
-    return [...this.tasks]
   }
 
   setName(name) {
     this.name = name;
+    return this;
   }
 
-  addTask(task) {
-    this.tasks.add(task);
+  summary() {
+    return {
+        id: this.id,
+        name: this.name,
+        tasks: this.tasks
+    };
   }
 
-  removeTask(task) {
-    this.tasks.remove(task);
-  }
-
-  updateTask(task) {
-    this.tasks.update(task);
+  toJSON() {
+    const summary = this.summary();
+    return JSON.stringify(summary);
   }
 }
 

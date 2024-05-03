@@ -1,4 +1,5 @@
 'use server'
+import TaskModel from "@/model/TaskModel"
 import { revalidatePath } from "next/cache"
 export async function getProject(id) {
   const res = await fetch(`http://localhost:3000/api/project/${id}`)
@@ -24,27 +25,30 @@ export async function getUsers() {
 export async function addProjectTask(formData) {
   const type = formData.get('type');
   const id = formData.get('id');
-  const url = `http://localhost:3000/${type}/${id}`
+  let model;
+  if(type === 'project') {
+    model = new TaskModel('projectTasks');
+  } else {
+    model = new TaskModel('templateTasks');
+  }
   const task = {
-    id: id,
-    type: type,
+    projectId: id,
     name: formData.get('name'),
     description: formData.get('description'),
     assignee: formData.get('assignee'),
     docRef: formData.get('docRef'),
     dueDate: formData.get('dueDate')
   }
+  try {
+    const response = await model.create(task);
+    console.log(response);
 
-  const response = await fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(task),
-  });
-
-  if(!response.ok) {
-    throw new Error('Failed to add task');
+  } catch(e) {
+    console.error('Failed to create task', {cause: e})
   }
 
-  revalidatePath(url);
+
+  revalidatePath(`http://localhost:3000/${type}/${id}`);
 
   return 'OK';
 }

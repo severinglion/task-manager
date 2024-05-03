@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useState} from 'react'
 import {
     Select,
     MenuItem,
@@ -33,6 +33,7 @@ function useUsers() {
 
 export function UserSelect() {
     const [users, loading] = useUsers();
+    const [item, setItem] = useState(0);
     const items = users?.map(u => (
         <MenuItem key={u.id} value={u.id}>
             {u.name}
@@ -43,8 +44,9 @@ export function UserSelect() {
         <Select
             label='Assign User'
             name='assignee'
-            value={0}
+            value={item}
             disabled={loading}
+            onChange={e => setItem(e.target.value)}
         >
             <MenuItem value={0}>Unassigned</MenuItem>
             {items}

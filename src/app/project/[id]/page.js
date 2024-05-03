@@ -21,7 +21,7 @@ export const metadata = {
 export default async function ProjectDasboard({params}) {
   const id = params.id;
   const program = await getProject(id);
-  const tasks = program.tasks.tasks;
+  const tasks = program.tasks;
   const users = await getUsers();
   return (
     <main>
