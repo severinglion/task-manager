@@ -10,7 +10,7 @@ import { getProject } from "@/serverActions/projectActions";
  */
 export default function useProjectTaskListing (id) {
   const subscribe = useCallback(() => getProject(id), [id]);
-  const getSnapshot = () => project
+  const getSnapshot = 
   const project = useSyncExternalStore()
   const fetchData = useCallback(async () => {
     setLoading(true);

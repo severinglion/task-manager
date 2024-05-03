@@ -33,7 +33,7 @@ export function Task ({
             <TaskItem type='text' value={assignee?.name || 'Unassigned'} />
           </Link>
           <TaskItem type='text' value={dueDate} />
-          <TaskItem type='checkbox'  value={completed} action={toggleCompleteStatus} />
+          <TaskItem type='checkbox'  value={completed}/>
       </Stack>
     </Box>
   )
