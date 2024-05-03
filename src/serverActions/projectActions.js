@@ -12,6 +12,12 @@ export async function getProject(id) {
   return res.json();
 }
 
+export async function setTaskCompleteStatus(projectId, taskId, value) {
+  const model = new TaskModel('projectTasks');
+  await model.update(taskId, {completed: value});
+  revalidatePath(`http://localhost:3000/project/${projectId}`);
+}
+
 export async function getUsers() {
   const res = await fetch('http://localhost:3000/api/user');
 

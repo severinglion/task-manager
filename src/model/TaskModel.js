@@ -17,6 +17,16 @@ export class TaskModel {
       console.error('Database error', {cause: e});
     }
   }
+
+  async update(id, values) {
+    try {
+      return await this.db(this.type)
+        .update(values)
+        .where('id', id);
+    } catch (e) {
+      console.error('Database error', {cause: e});
+    }
+  }
 }
 
 export default TaskModel;

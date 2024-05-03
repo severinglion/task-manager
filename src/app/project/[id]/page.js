@@ -23,6 +23,8 @@ export default async function ProjectDasboard({params}) {
   const program = await getProject(id);
   const tasks = program.tasks;
   const users = await getUsers();
+  console.log('tasks', tasks);
+
   return (
     <main>
       <Container>

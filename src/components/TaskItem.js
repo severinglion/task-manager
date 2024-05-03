@@ -2,10 +2,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
 
-export function TaskItem ({value, type}) {
+export function TaskItem ({value, type, action}) {
   let item; 
   if (type === 'checkbox')
-    item = (<Checkbox checked={value} />)
+    item = (<Checkbox checked={value} action={action}/>)
   if (type === 'text') 
     item = (<Typography variant='body1'>{value}</Typography>)
   if (type==='title') 
