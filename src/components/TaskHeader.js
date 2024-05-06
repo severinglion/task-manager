@@ -11,6 +11,7 @@ export function TaskHeader () {
           <TaskItem type='title' value='Assigned User' />
           <TaskItem type='title' value='Due By' />
           <TaskItem type='title' value='Completed' />
+          <TaskItem type='title' value='Actions' />
       </Stack>
     </Box>
   )

@@ -2,6 +2,8 @@ import { useEffect, useState} from 'react'
 import {
     Select,
     MenuItem,
+    FormControl,
+    InputLabel,
 } from '@mui/material';
 
 async function fetchUsers () {
@@ -41,16 +43,22 @@ export function UserSelect() {
     ))
     return (
         <>
-        <Select
-            label='Assign User'
-            name='assignee'
-            value={item}
-            disabled={loading}
-            onChange={e => setItem(e.target.value)}
-        >
-            <MenuItem value={0}>Unassigned</MenuItem>
-            {items}
-        </Select>
+        <FormControl>
+            <InputLabel id='user-select-label'>
+                Assigned User
+            </InputLabel>
+            <Select
+                label='Assign User'
+                labelId='user-select-label'
+                name='assignee'
+                value={item}
+                disabled={loading}
+                onChange={e => setItem(e.target.value)}
+            >
+                <MenuItem value={0}>Unassigned</MenuItem>
+                {items}
+            </Select>
+        </FormControl>
         </>
     )
 }

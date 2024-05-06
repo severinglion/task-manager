@@ -1,5 +1,5 @@
 import ActionButton from '@/components/ActionButton';
-import Task from '@/components/Task';
+import Task from '@/components/TaskSummary';
 import TaskHeader from '@/components/TaskHeader';
 import {
   Stack,
@@ -35,6 +35,8 @@ export default async function ProjectDasboard({params}) {
             tasks.map(task => (
               <Task 
                 key={task.id}
+                id={task.id}
+                projectId={task.projectId}
                 name={task.name}
                 description={task.description}
                 assignee={users.find(user => user.id === task.assignee)}

@@ -1,10 +1,9 @@
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Link from 'next/link';
-import TaskItem from './TaskItem';
-import {setTaskCompleteStatus} from '@/serverActions/projectActions';
-
-export function Task ({
+import TaskItem from '@/components/TaskItem'
+import TaskEditDeleteButtonGroup from '@/components/TaskEditDeleteButtonGroup'
+export function TaskSummary ({
   id,
   projectId,
   name,
@@ -15,13 +14,6 @@ export function Task ({
   docRef
 }) {
   const mailToLink = assignee ? `mailto:${assignee.email}` : '';
-
-  const toggleCompleteStatus = async (req) => {
-    'use server'
-    console.log(req);
-
-    //await setTaskCompleteStatus(projectId, id, e)
-  }
   return (
     <Box  width='1000px'>
       <Stack direction='row' spacing={0} alignItems='center'>
@@ -33,9 +25,10 @@ export function Task ({
             <TaskItem type='text' value={assignee?.name || 'Unassigned'} />
           </Link>
           <TaskItem type='text' value={dueDate} />
-          <TaskItem type='checkbox'  value={completed}/>
+          <TaskItem type='checkbox' taskId={id} projectId={projectId} value={completed}/>
+          <TaskEditDeleteButtonGroup taskId={id} projectId={projectId} />
       </Stack>
     </Box>
   )
 }
-export default Task;
+export default TaskSummary;
