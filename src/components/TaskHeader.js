@@ -8,6 +8,7 @@ export function TaskHeader () {
       <Stack direction='row' spacing={0} alignItems='center'>
           <TaskItem type='title' value='Name' />
           <TaskItem type='title' value='Description' />
+          <TaskItem type='title' value='Stage' />
           <TaskItem type='title' value='Assigned User' />
           <TaskItem type='title' value='Due By' />
           <TaskItem type='title' value='Completed' />

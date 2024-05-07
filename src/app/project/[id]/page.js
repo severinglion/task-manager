@@ -1,15 +1,14 @@
-import ActionButton from '@/components/ActionButton';
 import Task from '@/components/TaskSummary';
 import TaskHeader from '@/components/TaskHeader';
 import {
   Stack,
   Container,
-  Button,
-  TextField,
-  
+  Typography,
 } from '@mui/material';
 import {getProject, getUsers} from '@/serverActions/projectActions'
 import { TaskForm } from '@/components/TaskForm';
+import { HouseOutlined } from '@mui/icons-material';
+import Link from 'next/link';
 
 export const metadata = {
   title: "New Project",
@@ -28,7 +27,12 @@ export default async function ProjectDasboard({params}) {
   return (
     <main>
       <Container>
-        <h1>{program.name}</h1>
+        <Stack direction='row' >
+          <Link href={`/`}>
+            <HouseOutlined />
+          </Link>
+          <Typography variant='h3'>{program.name}</Typography>
+        </Stack>
         <Stack overflow='auto'>
           <TaskHeader />
           {
@@ -39,6 +43,7 @@ export default async function ProjectDasboard({params}) {
                 projectId={task.projectId}
                 name={task.name}
                 description={task.description}
+                stage={task.stage}
                 assignee={users.find(user => user.id === task.assignee)}
                 completed={task.completed}
                 dueDate={task.dueDate}

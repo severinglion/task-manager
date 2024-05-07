@@ -48,6 +48,7 @@ export async function addProjectTask(formData) {
     projectId: id,
     name: formData.get('name'),
     description: formData.get('description'),
+    stage: formData.get('stage'),
     assignee: formData.get('assignee'),
     docRef: formData.get('docRef'),
     dueDate: formData.get('dueDate')

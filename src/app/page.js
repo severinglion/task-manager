@@ -3,21 +3,25 @@ import Image from "next/image";
 import ProjectSummary from "@/components/ProjectSummary";
 import {
   Button,
-  TextField
+  TextField,
+  Typography,
+  Container,
 } from '@mui/material';
+
+import ProjectForm from "@/components/ProjectForm";
+import Link from "next/link";
 
 export default async function Home() {
   const projects = await getProjectListing();
 
-  console.log(projects);
   return (
     <main>
-      <h1>Home</h1>
-      <form action={createProject}>
-        <TextField name='name'/>
-        <Button type='submit'>Create</Button>
-      </form>
-      {projects?.map(p => (<ProjectSummary key={p.id} project={p} />))}
+      <Container>
+        <Typography variant='h3'>Home</Typography>
+        <Link href='/resources'>Resources</Link>
+        {projects?.map(p => (<ProjectSummary key={p.id} project={p} />))}
+        <ProjectForm />
+      </Container>
     </main>
   );
 }
