@@ -1,5 +1,6 @@
 'use server'
 import TaskModel from "@/model/TaskModel"
+import Project from "@/model/Project"
 import { revalidatePath } from "next/cache"
 export async function getProject(id) {
   const res = await fetch(`http://localhost:3000/api/project/${id}`)
@@ -63,4 +64,30 @@ export async function addProjectTask(formData) {
   revalidatePath(`http://localhost:3000/${type}/${id}`);
 
   return 'OK';
+}
+
+
+export async function getProjectListing() {
+  const project = new Project()
+  const listing = await project.index()
+  return listing;
+}
+
+export async function createProject(formData) {
+  const name = formData.get('name');
+
+  const project = new Project();
+  const res = await project.create(name);
+  console.log('create response', res);
+  revalidatePath('http://localhost:3000');
+  return 'ok';
+}
+
+export async function deleteProject(id) {
+  console.log('delete project', id);
+  const project = new Project();
+  const res = await project.delete(id);
+  console.log('delete response', res);
+  revalidatePath('http://localhost:3000');
+  return 'ok';
 }

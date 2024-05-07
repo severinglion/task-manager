@@ -7,6 +7,13 @@ export class Project {
     this.db = db
   }
 
+  async index() {
+    const listing = await this.db('projects')
+      .select();
+
+    return listing; 
+  }
+
   async get(id) {
     this.id = id;
     try {
@@ -26,8 +33,24 @@ export class Project {
     }
   }
 
-  async create() {
+  async create(name) {
+    if(!name || typeof name !== 'string') {
+      throw new Error('Project requires a name');
+    }
+    return await this.db('projects')
+      .insert({name: name})
+  }
 
+  async delete(id) {
+    await this.db('projectTasks')
+      .where('projectId', id)
+      .del();
+
+    await this.db('projects')
+      .where(id, id)
+      .del();
+
+    return true;
   }
 
   setName(name) {
