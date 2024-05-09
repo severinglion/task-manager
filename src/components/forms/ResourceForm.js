@@ -6,6 +6,7 @@ import {
   Button,
 } from '@mui/material';
 import {useState} from 'react';
+import FormBody from '@/components/inputs/FormBody'
 
 export function ResourceForm({type, initial}) {
   const [name, setName] = useState(initial?.name);
@@ -27,12 +28,12 @@ export function ResourceForm({type, initial}) {
     setHref(e.target.value);
   }
   return (
-    <form action={action}>
-      <TextField name='id' type='hidden' value={initial?.id}/>
+    <FormBody action={action} title='Create Resource'>
+      <input name='id' type='hidden' value={initial?.id}/>
       <TextField name='name' label='Name' required value={name} onChange={handleUpdateName}/>
       <TextField name='href' type='url' label='URL' required value={href} onChange={handleUpdateHref}/>
       <Button type='submit'>{type}</Button>
-    </form>
+    </FormBody>
   )
 }
 

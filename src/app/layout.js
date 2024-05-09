@@ -3,8 +3,9 @@ import {AppRouterCacheProvider} from '@mui/material-nextjs/v13-appRouter';
 import "./globals.css";
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/theme.js';
-import HeaderAppBar from '@/components/HeaderAppBar';
-
+import HeaderAppBar from '@/components/navigation/HeaderAppBar';
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -19,7 +20,11 @@ export default function RootLayout({ children }) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
               <HeaderAppBar />
-              {children}
+              <Paper sx={{minHeight: '90vh'}}>
+                <Container>
+                  {children}
+                </Container>
+              </Paper>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

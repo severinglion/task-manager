@@ -4,11 +4,8 @@ import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
 import {setTaskCompleteStatus} from '@/serverActions/projectActions'
 
-
-
 export function TaskItem ({taskId, projectId, value, type}) {
   async function handleCheckmark (e) {
-    console.log('update', e.target.checked);
     setTaskCompleteStatus(taskId, projectId, e.target.checked);
   }
  

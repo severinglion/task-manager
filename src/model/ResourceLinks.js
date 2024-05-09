@@ -54,14 +54,63 @@ export class ResourceLinks {
       .insert({name, href});
   }
 
-  async mapResourceToTemplate(resourceId, templateId) {
+  async mapResourceToTemplateTask(resourceId, templateId, taskId) {
     return await this.db('templateResources')
-      .insert({resourceId, templateId});
+      .insert({resourceId, templateId, taskId});
   }
 
-  async mapResourceToProject(resourceId, projectId) {
+  async getTemplateTaskResources(templateId, taskId) {
+    return await this.db('templateResources')
+      .where({templateId, taskId})
+      .join('resources', 'templateResources.resourceId', 'resources.id')
+      .select('resources.*', 'templateResources.templateId', 'templateResources.taskId');
+  }
+
+  async getTemplateResources(templateId) {
+    return await this.db('templateResources')
+      .where({templateId})
+      .join('resources', 'templateResources.resourceId', 'resources.id')
+      .select(
+        'resources.*', 'templateResources.templateId', 'templateResources.taskId',
+        'templateResources.id', 'templateResources.resourceId'
+      );
+  }
+
+  async deleteTemplateResources(templateId) {
+    return await this.db('templateResources')
+      .where({templateId})
+      .del();
+  }
+
+  async mapResourceToProjectTask(resourceId, projectId, taskId) {
     return await this.db('projectResources')
-      .insert({resourceId, projectId});
+      .insert({resourceId, projectId, taskId});
+  }
+
+  async getProjectTaskResources(projectId, taskId) {
+    return await this.db('projectResources')
+    .where({projectId, taskId})
+    .join('resources', 'projectResources.resourceId', 'resources.id')
+    .select(
+      'resources.*', 'projectResources.projectId', 'projectResources.taskId',
+      'projectResources.id', 'projectResources.resourceId'
+    );
+  }
+
+  async getProjectResources(projectId) {
+    return await this.db('projectResources')
+    .where({projectId})
+    .join('resources', 'projectResources.resourceId', 'resources.id')
+    .select(
+      'resources.*', 'projectResources.projectId', 'projectResources.taskId',
+      'projectResources.id', 'projectResources.resourceId'
+    );
+  }
+
+  async deleteProjectResources(projectId) {
+    return await this.db('projectResources')
+      .where('projectId', projectId)
+      .del();
   }
 
   async deleteProjectResourceMapping(resourceId) {
@@ -77,6 +126,14 @@ export class ResourceLinks {
   }
   
   async deleteResource(id) {
+    await this.db('projectResources')
+      .where({resourceId: id})
+      .del();
+
+    await this.db('templateResources')
+      .where({resourceId: id})
+      .del();
+
     return await this.db('resources')
       .where('id', id)
       .del();

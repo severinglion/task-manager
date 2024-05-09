@@ -6,31 +6,22 @@ import {
   Typography,
 } from '@mui/material';
 import {getProject, getUsers} from '@/serverActions/projectActions'
-import { TaskForm } from '@/components/TaskForm';
-import { HouseOutlined } from '@mui/icons-material';
-import Link from 'next/link';
+import { TaskForm } from '@/components/forms/TaskForm';
 
 export const metadata = {
   title: "New Project",
   description: "Create and configure your project here",
 };
 
-
-
 export default async function ProjectDasboard({params}) {
   const id = params.id;
   const program = await getProject(id);
   const tasks = program.tasks;
   const users = await getUsers();
-  console.log('tasks', tasks);
 
   return (
-    <main>
-      <Container>
+    <Stack spacing={3}>
         <Stack direction='row' >
-          <Link href={`/`}>
-            <HouseOutlined />
-          </Link>
           <Typography variant='h3'>{program.name}</Typography>
         </Stack>
         <Stack overflow='auto'>
@@ -56,7 +47,6 @@ export default async function ProjectDasboard({params}) {
           id={id}
           type='project'
         />
-      </Container>
-    </main>
+    </Stack>
   )
 }

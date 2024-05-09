@@ -1,18 +1,14 @@
 'use client'
 import {
-  Box,
   Button,
   TextField
 } from '@mui/material';
 import {addProjectTask} from '@/serverActions/projectActions'
 import { useRef } from 'react';
-import UserSelect from './UserSelect';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import UserSelect from '../UserSelect';
 import StageSelect from '@/components/StageSelect'
-
-
+import FormBody from '@/components/inputs/FormBody';
+import { ClientDatePicker } from '@/components/inputs/ClientDatePicker';
 export function TaskForm({id, type}) {
   const formRef = useRef();
   const handleSubmit = async (formData) => {
@@ -20,9 +16,7 @@ export function TaskForm({id, type}) {
     formRef.current.reset();
   }
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box>
-        <form action={handleSubmit} ref={formRef}>
+        <FormBody action={handleSubmit} ref={formRef} title='Create Task'>
           <input hidden readOnly name='id' value={id} />
           <input hidden readOnly name='type' value={type} />
           <TextField name='name' label='Name' inputProps={{id: 'name'}} required/>
@@ -30,7 +24,7 @@ export function TaskForm({id, type}) {
           <UserSelect />
           <StageSelect />
           <TextField name='docRef' label='Training Link' type='url'/>
-          <DatePicker name='dueDate' label='Due Date' />
+          <ClientDatePicker name='dueDate' label='Due Date' />
           <Button
             variant="text"
             color="primary"
@@ -38,9 +32,7 @@ export function TaskForm({id, type}) {
           >
             Submit
           </Button>
-        </form>
-      </Box>
-    </LocalizationProvider>
+        </FormBody>
 
   )
 }

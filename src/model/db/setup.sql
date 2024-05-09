@@ -1,5 +1,6 @@
 CREATE TABLE projects (
     id INTEGER PRIMARY KEY,
+    startDate DATE,
     name VARCHAR(255)
 );
 CREATE TABLE projectTasks (
@@ -26,6 +27,7 @@ CREATE TABLE resources (
 CREATE TABLE projectResources (
     id INTEGER PRIMARY KEY,
     projectId INTEGER,
+    taskId INTEGER,
     resourceId INTEGER,
     FOREIGN KEY (projectId) REFERENCES projects(id),
     FOREIGN KEY (resourceId) REFERENCES resources(id)
@@ -34,6 +36,7 @@ CREATE TABLE templateResources (
     id INTEGER PRIMARY KEY,
     templateId INTEGER,
     resourceId INTEGER,
+    taskId INTEGER,
     FOREIGN KEY (templateId) REFERENCES templates(id),
     FOREIGN KEY (resourceId) REFERENCES resources(id)
 );
@@ -45,8 +48,7 @@ CREATE TABLE templateTasks (
     stage INT,
     assignee INT,
     docRef VARCHAR(512),
-    dueDate VARCHAR(10),
-    completed boolean,
+    dayOffset INT,
     FOREIGN KEY (templateId) REFERENCES templates(id)
 );
 

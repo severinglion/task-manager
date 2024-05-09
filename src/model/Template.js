@@ -1,25 +1,59 @@
-import TaskList from "./TaskList";
+import db from '@/model/db/db';
+import { ResourceLinks } from './ResourceLinks';
 
 export class Template {
-  constructor(name) {
-    tasks = new TaskList();
-    this.name = name;
+  constructor() {
+    this.db = db;
   }
 
-  setName(name) {
-    this.name = name;
+  async getList() {
+    return await this.db('templates')
+      .select();
   }
 
-  addTask(task) {
-    tasks.add(task);
+  async getTemplate(id) {
+    const template = await this.db('templates')
+      .where('id', id)
+      .select()
+      .first();
+    if(!template) 
+      return null;
+
+    const tasks = await this.db('templateTasks')
+      .where('templateId', id)
+      .select();
+
+    template.tasks = tasks;
+    return template; 
   }
 
-  removeTask(task) {
-    tasks.remove(task);
+  async createTemplate(name) {
+    return await this.db('templates')
+      .insert({name});
   }
 
-  updateTask(task) {
-    tasks.update(task);
+  async deleteTemplate(id) {
+    const resourceModel = new ResourceLinks();
+    await resourceModel.deleteTemplateResources(id);
+
+    await this.db('templateTasks')
+      .where('templateId', id)
+      .del();
+
+    return await this.db('templates')
+      .where('id', id)
+      .del();
+  }
+
+  async createTemplateTask(task) {
+    return await this.db('templateTasks')
+      .insert(task);
+  }
+
+  async deleteTemplateTask(id) {
+    return await this.db('templateTasks')
+      .where({id})
+      .del();
   }
 }
 

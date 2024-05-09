@@ -3,15 +3,37 @@ import {
   Box,
   AppBar,
   Typography,
+  IconButton,
   Toolbar
 } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
+import {useState} from 'react';
+import AppDrawer from '@/components/navigation/AppDrawer';
+
 
 export function HeaderAppBar ({}) {
+  const [drawer, setDrawer] = useState(false);
+  const openDrawer = () => {
+    setDrawer(true);
+  }
+  const closeDrawer = () => {
+    setDrawer(false);
+  }
   return (
     <Box sx={{ flexGrow: 1}}>
       <AppBar position="static">
         <Toolbar>
+          <IconButton
+            onClick={openDrawer}
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            >
+            <MenuIcon />
+          </IconButton>
           <Typography variant='h6' component='div'>
               <Box
                 width={50}
@@ -35,6 +57,7 @@ export function HeaderAppBar ({}) {
             </Typography>
         </Toolbar>
       </AppBar>
+      <AppDrawer open={drawer} onClose={closeDrawer} />
     </Box>
   )
 }
