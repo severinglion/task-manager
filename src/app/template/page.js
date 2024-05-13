@@ -3,7 +3,7 @@ import {
     Typography,
 } from '@mui/material';
 import TemplateListing from '@/components/templates/TemplateListing';
-import TemplateForm from '@/components/templates/TemplateForm';
+import TemplateForm from '@/components/forms/TemplateForm';
 
 export default async function TemplateListingPage () {
 

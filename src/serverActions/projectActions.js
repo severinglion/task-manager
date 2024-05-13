@@ -76,9 +76,9 @@ export async function getProjectListing() {
 
 export async function createProject(formData) {
   const name = formData.get('name');
-
+  const startDate = formData.get('startDate');
   const project = new Project();
-  const res = await project.create(name);
+  const res = await project.create(name, startDate);
   console.log('create response', res);
   revalidatePath('http://localhost:3000');
   return 'ok';

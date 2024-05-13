@@ -9,11 +9,11 @@ import AddIcon from '@mui/icons-material/Add';
 import UserSelect from '@/components/UserSelect';
 import { addTemplateTask } from '@/serverActions/templateActions';
 import StageSelect from '@/components/StageSelect';
+import FormBody from '@/components/inputs/FormBody';
+
 export function TemplateTaskForm ({templateId}) {
     return (
-        <Box>
-            <Typography variant='h6'>Add Task</Typography>
-            <form action={addTemplateTask}>
+            <FormBody action={addTemplateTask} title='Add Task'>
                 <input hidden name='templateId' value={templateId} readOnly />
                 <TextField name='name' label='Name' required/>
                 <TextField name='description' label='Description' />
@@ -24,7 +24,6 @@ export function TemplateTaskForm ({templateId}) {
                 <IconButton type='submit'>
                     <AddIcon />
                 </IconButton>
-            </form>
-        </Box>
+            </FormBody>
     )
 }

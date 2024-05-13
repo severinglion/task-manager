@@ -10,6 +10,18 @@ export class Project {
   async index() {
     const listing = await this.db('projects')
       .select();
+    for(let i = 0; i < listing.length; i++) {
+      const totalTasks = await this.db('projectTasks')
+        .where('projectId', listing[i].id)
+        .count({count: 'id'})
+        .first();
+      const completedTasks = await this.db('projectTasks')
+        .where({ projectId: listing[i].id, completed: true})
+        .count({count: 'id'})
+        .first();
+      listing[i].totalTasks = totalTasks.count;
+      listing[i].completedTasks = completedTasks.count;
+    }
 
     return listing; 
   }
@@ -33,12 +45,12 @@ export class Project {
     }
   }
 
-  async create(name) {
+  async create(name, startDate) {
     if(!name || typeof name !== 'string') {
       throw new Error('Project requires a name');
     }
     return await this.db('projects')
-      .insert({name: name})
+      .insert({name, startDate})
   }
 
   async delete(id) {
