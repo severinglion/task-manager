@@ -55,6 +55,13 @@ export class Template {
       .where({id})
       .del();
   }
+
+  async getTemplateTask(id) {
+    return await this.db('templateTasks')
+      .where({id})
+      .select()
+      .first();
+  }
 }
 
 export default Template;
