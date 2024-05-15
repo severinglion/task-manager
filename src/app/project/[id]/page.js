@@ -3,6 +3,7 @@ import TaskHeader from "@/components/TaskHeader";
 import { Stack, Typography } from "@mui/material";
 import { getProject, getUsers } from "@/serverActions/projectActions";
 import { TaskForm } from "@/components/forms/TaskForm";
+import { ProjectTaskDataGrid } from "@/components/ProjectTaskDataGrid";
 
 export const metadata = {
   title: "New Project",
@@ -37,6 +38,7 @@ export default async function ProjectDasboard({ params }) {
           />
         ))}
       </Stack>
+      <ProjectTaskDataGrid projectId={params.id} />
       <TaskForm id={id} type="project" />
     </Stack>
   );

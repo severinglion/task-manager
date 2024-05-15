@@ -36,8 +36,8 @@ export function TaskSummary({
     : "";
 
   return (
-    <Box width="1000px">
-      <Stack direction="row" spacing={0} alignItems="center">
+    <Box sx={{ width: 1100, '&:hover': { background: 'lightgray' } }}>
+      <Stack direction="row" spacing={0}>
         {nameElement}
         <TaskItem type="text" value={description} />
         <TaskItem type="text" value={stageName} />
