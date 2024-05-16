@@ -8,44 +8,51 @@ export class TaskStages {
 
   static getStageString(stageId) {
     switch (stageId) {
-      case 0: return 'None';
-      case 1: return 'Sales';
-      case 2: return 'Onboarding';
-      case 3: return 'Participant Onboarding';
-      case 4: return 'Program Runtime';
-      case 5: return 'Post Program';
-      default: 'Unsupported';
+      case 0:
+        return "None";
+      case 1:
+        return "Sales";
+      case 2:
+        return "Client Onboarding";
+      case 3:
+        return "Participant Onboarding";
+      case 4:
+        return "Program Runtime";
+      case 5:
+        return "Post Program";
+      default:
+        "Unsupported";
     }
-  };
+  }
 
   static getOptions() {
     return [
       {
-        label: 'None',
+        label: "None",
         value: TaskStages.NONE,
       },
       {
-        label: 'Sales',
+        label: "Sales",
         value: TaskStages.SALES,
       },
       {
-        label: 'Client Onboarding',
+        label: "Client Onboarding",
         value: TaskStages.CLIENT_ONBOARDING,
       },
       {
-        label: 'Participant Onboarding',
+        label: "Participant Onboarding",
         value: TaskStages.PART_ONBOARDING,
       },
       {
-        label: 'Program Runtime',
+        label: "Program Runtime",
         value: TaskStages.PROGRAM_RUN,
       },
       {
-        label: 'Post Program',
+        label: "Post Program",
         value: TaskStages.POST_PROGRAM,
-      }
-    ]
-  };
-};
+      },
+    ];
+  }
+}
 
 export default TaskStages;

@@ -1,10 +1,15 @@
-'use client'
+"use client";
 
-import IconButton from '@mui/material/IconButton';
+import IconButton from "@mui/material/IconButton";
 
-export function ActionIconButton ({action, icon}) {
+export function ActionIconButton({ handler, icon }) {
   return (
-    <IconButton onClick={action}>
+    <IconButton
+      onClick={async (e) => {
+        console.log("Action button was clicked");
+        await handler(e);
+      }}
+    >
       {icon}
     </IconButton>
   );

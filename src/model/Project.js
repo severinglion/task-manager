@@ -78,6 +78,7 @@ export class Project {
         description: templateTask.description,
         assignee: templateTask.assignee,
         docRef: templateTask.docRef,
+        stage: templateTask.stage,
         dueDate,
         completed: false,
       };
