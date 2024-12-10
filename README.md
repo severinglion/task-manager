@@ -1,3 +1,12 @@
+# Task Management POC Application
+## What This Application Is
+This application is a proof-of-concept (POC) for a task management system, initially ideated for use within our workplace. It demonstrates how teams can:
+
+- Centralize Task Management: Consolidate tasks in a single interface, reducing confusion and improving transparency.
+- Enhance Accountability: Assign tasks clearly and visibly, ensuring everyone knows their responsibilities.
+- Improve Productivity: Streamline the workflow with straightforward task creation, updating, and progress tracking.
+- Enable Future Integration: Serve as a foundation that can be extended and integrated into existing internal tools and systems.
+- This is a Next.js project bootstrapped with create-next-app.
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
